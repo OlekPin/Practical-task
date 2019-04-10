@@ -155,7 +155,7 @@ a:hover {
    padding-right: 20px; 
   }
 
-  .song-name {
+  #song-name {
       font-weight: 700;
   }
   .song-divider {
