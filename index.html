@@ -2,10 +2,11 @@
 <html lang="en">
     <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="style.css">
+            
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+            <link rel="stylesheet" href="style.css">
+            <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
             <title>iTunes api example</title>
     </head>
 
@@ -22,16 +23,38 @@
 
                 <main>
                     <div id="main">
-                        <div class="container">
-                            <div class="content">
-                                <div id="main-heading">iTunes api example</div>
-                                <div id="form-div">
-                                    <form id="search-form" action="#">
-                                        <input type="text" name="search" placeholder="Search songs.." id="search-field">
-                                        <input type="submit" value="search" id="button">
-                                    </form>
-                                </div>
-                                <div id="main-description">Search by song title, author, song number, lyrics, catalog or copywrite owner</div>
+                        <div class="container form-container">                           
+                            <div id="main-heading">iTunes api example</div>
+                            <div id="form-div">
+                                <form id="search-form" action="#">
+                                    <input type="text" name="search" placeholder="Search songs.." id="search-field">
+                                    <input type="submit" value="search" id="button">
+                                </form>
+                            </div>
+                            <div id="main-description">Search by song title, author, song number, lyrics, catalog or copywrite owner</div>
+                        </div>
+                    </div>
+                    <div id="main-list">
+                        <div class="container list-container">
+                            <div id="found">Found</div>
+                            <div id="songlist">
+
+                                <a href="#">
+                                    <div class="songitem">                                
+                                        <div class="album-cover song">
+                                            <img src="#" alt="Album cover">
+                                        </div>
+                                        <div class="song-descr song">
+                                            <div class="song-name">Castle on the hill</div>
+                                            <div class="song-divider"></div>
+                                            <div class="singer">
+                                                By Ed Sheeran
+                                            </div>
+                                        </div>                                    
+                                    </div>
+                                </a>
+
+                               
                             </div>
                         </div>
                     </div>
