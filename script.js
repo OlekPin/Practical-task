@@ -1,77 +1,80 @@
-$("#search-form").submit(function (event) {
-    var value = $("input:first").val()
-    var URL = "https://itunes.apple.com/search?term=" + value + "&entity=song" //API URL
+$(document).ready(function () {
 
-    event.preventDefault();
-    $.ajax({
-    type: 'GET',
-    url: URL
-}).done(function (response) {
-    var song = JSON.parse(response)
+    var song = {};
+    var currentPage = 0;
+    var songsPerPage = 9;
 
-    console.log(song)//To remove!!!
-    var name = ""
-    var artist = ""
-    var album = ""
-    document.getElementById ("songlist").innerHTML = ""
+    //Events
+    $('#prev').click(function () {
+        currentPage--;
+        updatePageResultList();
+    });
+    $('#next').click(function () {
+        currentPage++;
+        updatePageResultList();
+    });
 
+    //Main function to update results on page
+    function updatePageResultList() {
+        //If there are songs
+        if (typeof (song.results) != "undefined" && song.resultCount > 0) {
 
-    var container = document.getElementById("songlist");
+            var from = currentPage * songsPerPage;
+            var to = from + songsPerPage;
 
-for (var i = 0; i < song.results.length; i++) { //Adding divs with songs
-    container.innerHTML += '<a href="#">'
-+ '<div class="songitem">'                                
-+ '<div class="album-cover song" id="albumid' + i + '">'
-+ '</div>'
-+ '<div class="song-descr song">'
-+'<div class="song-name" id="songid'+ i +'"></div>'
-+'<div class="song-divider"></div>'
-+'<div class="singer" id="singerid' + i + '">'
-+'</div>'
-+'</div>'                                    
-+'</div>'
-+ '</a>';
+            //Display song data 
+            var songListHtml = "";
+            for (var i = from; i < to && i < song.resultCount && typeof (song.results[i]) != "undefined"; i++) {
+                songListHtml += '<a href="#">' +
+                    '<div class="songitem">' +
+                    '<div class="album-cover song" id="albumid' + i + '">' +
+                    '<img src="' + song.results[i].artworkUrl100 + '" alt="Album cover">' +
+                    '</div>' +
+                    '<div class="song-descr song">' +
+                    '<div class="song-name" id="songid' + i + '">' + song.results[i].trackName + '</div>' +
+                    '<div class="song-divider"></div>' +
+                    '<div class="singer" id="singerid' + i + '">By ' + song.results[i].artistName +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>';
+            }
 
-}
+            //Navigation Buttons
+            if (currentPage !== 0) {
+                $('#prev').css('display', 'inline-block');
+            } else {
+                $('#prev').css('display', 'none');
+            }
+            if (typeof (song.results[to + 1]) != "undefined") {
+                $('#next').css('display', 'inline-block');
+            } else {
+                $('#next').css('display', 'none');
+            }
 
-
-for (i in song.results) { //Display song data
-
-    for (j in song.results[i].trackName){
-        name += song.results[i].trackName[j];
+            //Updates on Page
+            $('#songlist').html(songListHtml);
+            $('#found').html("Found " + song.resultCount + " songs");
+        } else {
+            //If there are no songs
+            $('#found').html("");
+            $('#songlist').html("Sorry, no matches found");
+        }
     }
-    document.getElementById ("songid"+i).innerHTML = name   
-    name = ""
 
-    for (j in song.results[i].artistName){
-        artist += song.results[i].artistName[j];
-    }
-    document.getElementById ("singerid"+i).innerHTML = 'By ' + artist
-    artist = ""
-
-    for (j in song.results[i].artworkUrl100){
-        album += song.results[i].artworkUrl100[j];
-    }
-    document.getElementById ("albumid"+i).innerHTML = '<img src="' + album + '" alt="Album cover">'
-    album = ""
-}
-
-var c = parseInt(i)+1
-console.log(c)
-
-if (song.resultCount >0){
-    document.getElementById ("found").innerHTML = "Found " + c + " songs"
-}
-else {
-    document.getElementById ("found").innerHTML = ""
-    container.innerHTML =  "Sorry, no matches found"
-}
-
-}).fail(function (response) {
-    if( !$.trim( $('#songlist').html() ).length ) {
-        container.innerHTML =  "Sorry, no matches found"
-    }
+    //On search
+    $("#search-form").submit(function (event) {
+        var value = $("input:first").val()
+        var URL = "https://itunes.apple.com/search?term=" + value + "&entity=song" //API URL
+        event.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: URL
+        }).done(function (response) {
+            song = JSON.parse(response);
+            updatePageResultList();
+        }).fail(function (response) {
+            $('#songlist').html("Sorry, no matches found");
+        });
+    });
 });
-});
-    
-

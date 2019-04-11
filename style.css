@@ -44,6 +44,13 @@ input {
     flex-direction: column;
     height: 100%;
   }
+
+  .cont-width {
+      max-width: 940px;
+  }
+  .cont-head {
+      padding: 5px 0 10px 20px;
+  }
   
   #main-content{
     flex: 1 0 auto;
@@ -96,14 +103,14 @@ input {
 
   #search-field {
     border-style: none;
-    border-radius: 20px 0 0 20px; 
+    border-radius: 40px 0 0 40px; 
     font-size: 16px;
     padding: 14px 0 14px 20px;
   }
   #button{
       background-color: #f7941d;
       border-style: none;
-      border-radius: 0 20px 20px 0;
+      border-radius: 0 40px 40px 0;
       padding: 14px 23px 14px 17px; 
       color: #ffffff;
   }
@@ -114,14 +121,17 @@ input {
 
   #found {
       text-align: center;
-      margin: 0 auto;
+      margin: 0 auto 16px auto;
   }
 
+  .songlink {
+      margin-bottom: 20px;
+  }
   #songlist {
     display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	align-items: center;
     align-content: stretch;
   }
@@ -129,19 +139,14 @@ input {
   .songitem {
       background-color: #f0f0f0;
       padding: 20px;
-      
-      /* margin: 20px 0 20px 0; */
+      max-width: 300px;
+      min-width: 300px;
   }
-
-  .songitem:hover {
-    
-  }
-
   a {
     color: inherit;
     border: solid 1px;
-      border-color: transparent;
-    
+    border-color: transparent;
+    margin: 10px 0 10px 0;
 }
 
 a:hover { 
@@ -149,14 +154,19 @@ a:hover {
     color: inherit;  
     border: solid 1px;
     border-color: #f7941d;
+    -webkit-box-shadow: 7px 11px 46px -19px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 11px 46px -19px rgba(0,0,0,0.75);
+    box-shadow: 7px 11px 46px -19px rgba(0,0,0,0.75);
   }
 
   .album-cover {
    padding-right: 20px; 
   }
 
-  #song-name {
+  .song-name {
       font-weight: 700;
+      max-width: 130px;
+    
   }
   .song-divider {
       width: 104px;
@@ -174,7 +184,24 @@ a:hover {
     text-align: center;
   }
 
+  .song-link {
+      margin-bottom: 20px;
+  }
   
+
+  .controlers {
+      padding: 5px;
+      background-color: #f7941d;
+      border-radius: 20px;
+      text-align: center;
+      width: 100px;
+      display: inline-block;
+      color: #ffffff;
+      display: none;
+  }
+  .controlers:hover {
+      cursor: pointer;
+  }
 
   footer {
       flex: 0 0 auto;
@@ -201,11 +228,14 @@ a:hover {
     font-weight: 300;
 }
 
-
-
-
-
 .footer-line {
     border: 0.5px solid;
     width: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+    #main-description {
+        max-width: 250px;
+        margin: auto;
+    }
 }
